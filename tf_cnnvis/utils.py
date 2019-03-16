@@ -4,7 +4,8 @@ import datetime
 from math import ceil, sqrt
 
 import numpy as np
-from scipy.misc import imsave
+# from scipy.misc import imsave
+import imageio
 
 from six.moves import range
 from six import iteritems
@@ -106,7 +107,7 @@ def _write_activation(activations, layer, path_outdir, path_logdir):
 
         grid_activation_path = os.path.join(path_out, "activations")
         is_success = make_dir(grid_activation_path)
-        imsave(os.path.join(grid_activation_path, "grid_activation.png"), grid_activations[i][0,:,:,0], format = "png")
+        imageio.imwrite(os.path.join(grid_activation_path, "grid_activation.png"), grid_activations[i][0,:,:,0], format = "png")
 
     # write into logfile
     path_log = os.path.join(path_logdir, layer.lower().replace("/", "_"))
@@ -144,9 +145,9 @@ def _write_deconv(images, layer, path_outdir, path_logdir):
         grid_image_path = os.path.join(path_out, "deconvolution")
         is_success = make_dir(grid_image_path)
         if grid_images[i].shape[-1] == 1:
-            imsave(os.path.join( grid_image_path, "grid_image.png"), grid_images[i][0,:,:,0], format = "png")
+            imageio.imwrite(os.path.join( grid_image_path, "grid_image.png"), grid_images[i][0,:,:,0], format = "png")
         else:
-            imsave(os.path.join(grid_image_path, "grid_image.png"), grid_images[i][0], format = "png")
+            imageio.imwrite(os.path.join(grid_image_path, "grid_image.png"), grid_images[i][0], format = "png")
 
     # for j in range(len(images[i])):
     # 	image_path = os.path.join(path_out, "image_%d" % (j))
